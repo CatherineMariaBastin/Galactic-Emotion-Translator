@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galactic Emotion Translator - Universal Feelings</title>
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', 'Orbitron', monospace;
+            background: radial-gradient(ellipse at center, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+            background-size: 400% 400%;
+            animation: cosmicBreathing 12s ease-in-out infinite;
+            min-height: 100vh;
+            padding: 20px;
+            color: #00ff41;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes cosmicBreathing {
+            0%, 100% { 
+                background-position: 0% 50%; 
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            33% { 
+                background-position: 100% 50%; 
+                filter: hue-rotate(60deg) brightness(1.1);
+            }
+            66% { 
+                background-position: 50% 100%; 
+                filter: hue-rotate(120deg) brightness(0.9);
+            }
+        }
+
+        /* Cosmic Background Elements */
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, transparent 70%);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .star.small { width: 1px; height: 1px; }
+        .star.medium { width: 2px; height: 2px; }
+        .star.large { width: 3px; height: 3px; }
+        .star.giant { 
+            width: 4px; 
+            height: 4px; 
+            background: radial-gradient(circle, #00ffff 0%, #ffffff 50%, transparent 70%);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Nebula Clouds */
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: nebulaFloat 20s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .nebula-1 {
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(138, 43, 226, 0.4) 0%, rgba(75, 0, 130, 0.2) 40%, transparent 70%);
+            top: 10%;
+            left: -20%;
+            animation-delay: 0s;
+        }
+
+        .nebula-2 {
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(0, 191, 255, 0.3) 0%, rgba(30, 144, 255, 0.2) 40%, transparent 70%);
+            top: 60%;
+            right: -20%;
+            animation-delay: -10s;
+        }
+
+        .nebula-3 {
+            width: 500px;
+            height: 700px;
+            background: radial-gradient(ellipse, rgba(255, 20, 147, 0.25) 0%, rgba(199, 21, 133, 0.15) 40%, transparent 70%);
+            top: 30%;
+            left: 50%;
+            animation-delay: -15s;
+        }
+
+        @keyframes nebulaFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(50px, -30px) rotate(5deg) scale(1.1); }
+            66% { transform: translate(-30px, 40px) rotate(-3deg) scale(0.9); }
+        }
+
+        /* Meteors */
+        .meteor {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(45deg, #ffffff, #00ffff, transparent);
+            border-radius: 50%;
+            animation: meteorFall linear infinite;
+        }
+
+        .meteor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(0,255,255,0.6), transparent);
+            transform-origin: 0 0;
+            transform: rotate(45deg);
+            box-shadow: 0 0 10px #00ffff;
+        }
+
+        @keyframes meteorFall {
+            0% {
+                transform: translate(0, -100px) rotate(45deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(200px, calc(100vh + 100px)) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Shooting stars */
+        .shooting-star {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, #ffffff, transparent);
+            animation: shootingStar 1.5s ease-out infinite;
+        }
+
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(-100px);
+                opacity: 0;
+                width: 0;
+            }
+            10% {
+                opacity: 1;
+                width: 100px;
+            }
+            90% {
+                opacity: 1;
+                width: 100px;
+            }
+            100% {
+                transform: translateX(100vw);
+                opacity: 0;
+                width: 0;
+            }
+        }
+
+        /* Cosmic Particles */
+        .cosmic-particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+            box-shadow: 0 0 5px #00ffff;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Pulsing cosmic rings */
+        .cosmic-ring {
+            position: absolute;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: cosmicRingPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes cosmicRingPulse {
+            0%, 100% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(2);
+                opacity: 0.6;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 40px;
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 65, 0.15) 0%, 
+                rgba(0, 212, 170, 0.1) 25%, 
+                rgba(138, 43, 226, 0.1) 50%, 
+                rgba(0, 191, 255, 0.15) 100%);
+            border-radius: 25px;
+            border: 2px solid rgba(0, 255, 65, 0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: 
+                0 0 60px rgba(0, 255, 65, 0.3),
+                inset 0 0 60px rgba(0, 255, 65, 0.1),
+                0 0 100px rgba(138, 43, 226, 0.2);
+            animation: headerCosmicGlow 4s ease-in-out infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(0, 255, 255, 0.1) 50%, 
+                transparent 70%);
+            animation: headerShimmer 6s linear infinite;
+        }
+
+        @keyframes headerShimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes headerCosmicGlow {
+            from { 
+                box-shadow: 
+                    0 0 60px rgba(0, 255, 65, 0.3),
+                    inset 0 0 60px rgba(0, 255, 65, 0.1),
+                    0 0 100px rgba(138, 43, 226, 0.2);
+            }
+            to { 
+                box-shadow: 
+                    0 0 80px rgba(0, 255, 65, 0.5),
+                    inset 0 0 80px rgba(0, 255, 65, 0.2),
+                    0 0 120px rgba(138, 43, 226, 0.4);
+            }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00ff41, #00d4aa, #0099ff, #cc33ff, #ff6b6b);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textCosmicShimmer 5s ease infinite;
+            text-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes textCosmicShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #00d4aa;
+            margin-bottom: 15px;
+            animation: pulse 3s infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        .alien-text {
+            font-size: 1.1rem;
+            color: #cc33ff;
+            font-style: italic;
+            animation: alienCosmicGlow 3s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes alienCosmicGlow {
+            from { 
+                text-shadow: 0 0 15px #cc33ff, 0 0 25px #cc33ff; 
+                transform: scale(1);
+            }
+            to { 
+                text-shadow: 0 0 25px #cc33ff, 0 0 35px #cc33ff, 0 0 45px #ff6b6b; 
+                transform: scale(1.02);
+            }
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: linear-gradient(135deg, 
+                rgba(0, 255, 65, 0.08) 0%, 
+                rgba(0, 212, 170, 0.06) 25%, 
+                rgba(138, 43, 226, 0.06) 50%, 
+                rgba(0, 191, 255, 0.08) 100%);
+            border-radius: 25px;
+            padding: 30px;
+            backdrop-filter: blur(20px) saturate(150%);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(0, 255, 65, 0.2),
+                inset 0 0 40px rgba(0, 255, 65, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ff41, #00ffff, #cc33ff, transparent);
+            animation: sectionScanLine 4s linear infinite;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.05) 0%, transparent 70%);
+            animation: sectionAura 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes sectionScanLine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes sectionAura {
+            0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.6; }
+        }
+
+        .section:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 15px 60px rgba(0, 255, 65, 0.4),
+                0 0 60px rgba(0, 255, 65, 0.3),
+                inset 0 0 60px rgba(0, 255, 65, 0.1);
+        }
+
+        .video-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 3px solid rgba(0, 255, 65, 0.5);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 65, 0.3),
+                inset 0 0 20px rgba(0, 255, 65, 0.1);
+            background: radial-gradient(ellipse at center, rgba(0, 255, 65, 0.1), transparent);
+        }
+
+        #video {
+            width: 100%;
+            transform: scaleX(-1);
+            filter: hue-rotate(120deg) saturate(1.3) contrast(1.1);
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: scaleX(-1);
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: 2px solid #00ff41;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 170, 0.1));
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.4), rgba(0, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.4), transparent);
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        .btn:hover {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 
+                0 0 30px rgba(0, 255, 65, 0.6),
+                0 10px 20px rgba(0, 255, 65, 0.3);
+            text-shadow: 0 0 15px #00ff41;
+            border-color: #00ffff;
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .translator-display {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.4) 0%, 
+                rgba(0, 255, 65, 0.05) 50%, 
+                rgba(0, 0, 0, 0.4) 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 65, 0.4);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .translator-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 191, 255, 0.1) 0%, transparent 50%);
+            animation: translatorAura 6s ease-in-out infinite;
+        }
+
+        @keyframes translatorAura {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .current-emotion {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            animation: emotionCosmicFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 65, 0.6));
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes emotionCosmicFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1); 
+                filter: drop-shadow(0 0 30px rgba(0, 255, 65, 0.6));
+            }
+            25% { 
+                transform: translateY(-15px) rotate(5deg) scale(1.05); 
+                filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.8));
+            }
+            50% { 
+                transform: translateY(-10px) rotate(-3deg) scale(1.1); 
+                filter: drop-shadow(0 0 35px rgba(204, 51, 255, 0.7));
+            }
+            75% { 
+                transform: translateY(-5px) rotate(2deg) scale(1.02); 
+                filter: drop-shadow(0 0 45px rgba(255, 107, 107, 0.6));
+            }
+        }
+
+        .emotion-label {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #00ff41;
+            text-shadow: 0 0 20px #00ff41;
+            position: relative;
+            z-index: 2;
+        }
+
+        .alien-translation {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #cc33ff;
+            margin: 25px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, 
+                rgba(204, 51, 255, 0.15) 0%, 
+                rgba(138, 43, 226, 0.1) 50%, 
+                rgba(204, 51, 255, 0.15) 100%);
+            border-radius: 15px;
+            border: 2px solid rgba(204, 51, 255, 0.4);
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+            animation: alienCosmicPulse 3s ease-in-out infinite;
+            text-shadow: 0 0 25px #cc33ff;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes alienCosmicPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 40px rgba(204, 51, 255, 0.4);
+            }
+            50% { 
+                transform: scale(1.03); 
+                box-shadow: 0 0 60px rgba(204, 51, 255, 0.6);
+            }
+        }
+
+        .phonetic-guide {
+            font-size: 1.1rem;
+            color: #00d4aa;
+            font-style: italic;
+            margin-top: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .alien-species {
+            margin-bottom: 30px;
+        }
+
+        .species-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .species-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(0, 255, 65, 0.6);
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 212, 170, 0.1));
+            color: #00ff41;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .species-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent);
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .species-btn:hover::before, .species-btn.active::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .species-btn:hover, .species-btn.active {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.3), rgba(0, 212, 170, 0.3));
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.4);
+            transform: scale(1.08);
+            border-color: #00ffff;
+        }
+
+        .translation-history {
+            max-height: 350px;
+            overflow-y: auto;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 255, 65, 0.05));
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            box-shadow: inset 0 0 30px rgba(0, 255, 65, 0.1);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.08), rgba(0, 212, 170, 0.08));
+            border-radius: 12px;
+            border-left: 4px solid #00ff41;
+            animation: historyItemSlideIn 0.6s ease;
+            box-shadow: 0 2px 10px rgba(0, 255, 65, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 255, 65, 0.3);
+        }
+
+        @keyframes historyItemSlideIn {
+            from { transform: translateX(-100%) scale(0.8); opacity: 0; }
+            to { transform: translateX(0) scale(1); opacity: 1; }
+        }
+
+        .status {
+            text-align: center;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            border: 3px solid;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: statusShimmer 2s linear infinite;
+        }
+
+        @keyframes statusShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .status.loading { 
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 165, 0, 0.1)); 
+            color: #ffc107; 
+            border-color: #ffc107;
+            animation: statusLoadingPulse 2s ease infinite;
+        }
+
+        .status.active { 
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.15), rgba(0, 212, 170, 0.1)); 
+            color: #00ff41; 
+            border-color: #00ff41;
+        }
+
+        .status.error { 
+            background: linear-gradient(135deg, rgba(255, 51, 51, 0.15), rgba(255, 0, 0, 0.1)); 
+            color: #ff3333; 
+            border-color: #ff3333;
+        }
+
+        @keyframes statusLoadingPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .galaxy-info {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 255, 65, 0.05));
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        .galaxy-info h4 {
+            color: #00d4aa;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .alien-fact {
+            color: #cc33ff;
+            font-style: italic;
+            margin: 12px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(204, 51, 255, 0.08), rgba(138, 43, 226, 0.05));
+            border-radius: 10px;
+            border-left: 4px solid #cc33ff;
+            box-shadow: 0 2px 10px rgba(204, 51, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .alien-fact:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(204, 51, 255, 0.3);
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(0, 255, 65, 0.2);
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .confidence-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.1) 100%);
+            animation: confidenceShimmer 2s linear infinite;
+        }
+
+        @keyframes confidenceShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff3333, #ffc107, #00ff41);
+            border-radius: 5px;
+            transition: width 0.8s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confidence-fill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.3) 100%);
+            animation: confidenceFillShimmer 1.5s linear infinite;
+        }
+
+        @keyframes confidenceFillShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Cosmic Wormhole Effect */
+        .wormhole {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: wormholeRotate 20s linear infinite;
+        }
+
+        .wormhole::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(204, 51, 255, 0.4);
+            border-radius: 50%;
+            animation: wormholeRotate 15s linear infinite reverse;
+        }
+
+        .wormhole::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            border: 1px solid rgba(0, 255, 65, 0.5);
+            border-radius: 50%;
+            animation: wormholeRotate 10s linear infinite;
+        }
+
+        @keyframes wormholeRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-content { grid-template-columns: 1fr 1fr; }
+            .header h1 { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .main-content { grid-template-columns: 1fr; }
+            .header h1 { font-size: 2.5rem; }
+            .current-emotion { font-size: 5rem; }
+            .alien-translation { font-size: 2.2rem; letter-spacing: 2px; }
+            .section { padding: 20px; }
+            .controls { gap: 15px; }
+            .btn { padding: 12px 24px; font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 2rem; }
+            .current-emotion { font-size: 4rem; }
+            .alien-translation { font-size: 1.8rem; letter-spacing: 1px; }
+            .species-selector { gap: 8px; }
+            .species-btn { padding: 8px 16px; font-size: 0.9rem; }
+        }
+
+        /* Custom Scrollbar for Cosmic Feel */
+        .translation-history::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .translation-history::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .translation-history::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00ff41, #00d4aa);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+
+        .translation-history::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #00d4aa, #0099ff);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cosmic Background Elements -->
+    <div class="cosmic-background">
+        <div class="stars" id="starfield"></div>
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+        <div class="nebula nebula-3"></div>
+        <div id="meteors"></div>
+        <div id="shootingStars"></div>
+        <div id="cosmicParticles"></div>
+        <div id="cosmicRings"></div>
+        <div id="wormholes"></div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🛸 GALACTIC EMOTION TRANSLATOR</h1>
+            <div class="subtitle">Universal Feelings Communication System v3.7.2</div>
+            <div class="alien-text">Xyth'ara vel morin zathen qu'val - "Bridging hearts across the cosmos"</div>
+        </div>
+
+        <div id="status" class="status loading">
+            Initializing quantum emotion matrices... Establishing intergalactic connection...
+        </div>
+
+        <div class="main-content">
+            <!-- Camera & Controls -->
+            <div class="section">
+                <h3 style="margin-bottom: 20px; text-align: center; color: #00ff41;">📡 Human Scanner</h3>
+                <div class="video-container">
+                    <video id="video" autoplay muted playsinline></video>
+                    <canvas id="overlay"></canvas>
+                </div>
+                <div class="controls">
+                    <button id="startBtn" class="btn" disabled>Begin Translation</button>
+                    <button id="stopBtn" class="btn" disabled>End Session</button>
+                </div>
+                
+                <div class="galaxy-info">
+                    <h4>🌌 Scanner Protocol:</h4>
+                    <div class="alien-fact">Center your human face in the quantum field</div>
+                    <div class="alien-fact">Optimal lighting enhances translation accuracy</div>
+                    <div class="alien-fact">Express emotions naturally for best results</div>
+                </div>
+            </div>
+
+            <!-- Main Translation Display -->
+            <div class="section">
+                <h3 style="margin-bottom: 20px; text-align: center; color: #00ff41;">🌠 Universal Translator</h3>
+                
+                <div class="alien-species">
+                    <h4 style="color: #00d4aa; margin-bottom: 15px; text-align: center;">Select Alien Species:</h4>
+                    <div class="species-selector">
+                        <button class="species-btn active" data-species="zephyrian">Zephyrian</button>
+                        <button class="species-btn" data-species="quantari">Quantari</button>
+                        <button class="species-btn" data-species="nexorian">Nexorian</button>
+                        <button class="species-btn" data-species="voidborn">Voidborn</button>
+                        <button class="species-btn" data-species="crystine">Crystine</button>
+                    </div>
+                </div>
+
+                <div class="translator-display">
+                    <div id="currentEmotion" class="current-emotion">🤖</div>
+                    <div id="emotionLabel" class="emotion-label">Awaiting Human Input...</div>
+                    
+                    <div id="alienTranslation" class="alien-translation">Qel'tar vesh noth</div>
+                    <div id="phoneticGuide" class="phonetic-guide">[KELL-tar vesh noth] - "Scanning for feelings"</div>
+                    
+                    <div class="confidence-bar">
+                        <div id="confidenceFill" class="confidence-fill" style="width: 0%"></div>
+                    </div>
+                    <div id="confidenceText" style="color: #00d4aa; margin-top: 5px;">Translation Accuracy: Initializing...</div>
+                </div>
+            </div>
+
+            <!-- Translation History & Info -->
+            <div class="section">
+                <h3 style="margin-bottom: 20px; text-align: center; color: #00ff41;">📚 Translation Log</h3>
+                
+                <div class="translation-history" id="translationHistory">
+                    <div style="text-align: center; color: #00d4aa; font-style: italic; padding: 20px;">
+                        Translation log will appear here once you start detecting emotions...
+                    </div>
+                </div>
+
+                <div class="galaxy-info">
+                    <h4>🔬 Species Database:</h4>
+                    <div id="speciesInfo" class="alien-fact">
+                        <strong>Zephyrians:</strong> Silicon-based lifeforms from the Andromeda sector. Known for their melodic emotional expressions and crystalline thought patterns.
+                    </div>
+                </div>
+
+                <div class="galaxy-info">
+                    <h4>⭐ Galactic Fact:</h4>
+                    <div id="galaxyFact" class="alien-fact">
+                        The Zephyrian language contains 47 different tonal variations for expressing degrees of confusion, making them the galaxy's most philosophically precise species.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class GalacticEmotionTranslator {
+            constructor() {
+                this.video = document.getElementById('video');
+                this.overlay = document.getElementById('overlay');
+                this.ctx = this.overlay.getContext('2d');
+                this.isDetecting = false;
+                this.stream = null;
+                this.detectionInterval = null;
+                this.currentSpecies = 'zephyrian';
+                this.translationHistory = [];
+
+                this.emotions = {
+                    angry: { emoji: '😠', color: '#ff3333', name: 'Angry' },
+                    disgusted: { emoji: '🤢', color: '#95a5a6', name: 'Disgusted' },
+                    fearful: { emoji: '😨', color: '#9b59b6', name: 'Fearful' },
+                    happy: { emoji: '😊', color: '#00ff41', name: 'Happy' },
+                    neutral: { emoji: '😐', color: '#00d4aa', name: 'Neutral' },
+                    sad: { emoji: '😢', color: '#4ecdc4', name: 'Sad' },
+                    surprised: { emoji: '😮', color: '#ffc107', name: 'Surprised' }
+                };
+
+                this.alienLanguages = {
+                    zephyrian: {
+                        name: "Zephyrian",
+                        description: "Silicon-based lifeforms from the Andromeda sector. Known for their melodic emotional expressions and crystalline thought patterns.",
+                        translations: {
+                            angry: { text: "Krath'mor zephel!", phonetic: "[KRATH-mor ZEH-fell]", meaning: "Storm-fire burns within!" },
+                            disgusted: { text: "Vex'thul nala", phonetic: "[VEX-thool NAH-lah]", meaning: "Corruption detected" },
+                            fearful: { text: "Sith'ara vel'os", phonetic: "[SITH-ah-rah vell-OSS]", meaning: "Shadows whisper danger" },
+                            happy: { text: "Lum'thara kess!", phonetic: "[LOOM-thah-rah kess]", meaning: "Light-song rejoices!" },
+                            neutral: { text: "Mor'dan keth", phonetic: "[MOR-dan keth]", meaning: "Mind rests in balance" },
+                            sad: { text: "Weep'salla mor", phonetic: "[WEEP-sah-lah mor]", meaning: "Heart-rain falls" },
+                            surprised: { text: "Quin'tel zara!", phonetic: "[KWIN-tell ZAH-rah]", meaning: "Reality shifts unexpectedly!" }
+                        }
+                    },
+                    quantari: {
+                        name: "Quantari",
+                        description: "Energy beings from the quantum realm. They communicate through probability waves and exist in multiple dimensions simultaneously.",
+                        translations: {
+                            angry: { text: "Flux.Rage.999%", phonetic: "[FLUX-dot-RAY-juh-nine-nine-nine-percent]", meaning: "Probability cascade of fury" },
+                            disgusted: { text: "Error.State.Reject", phonetic: "[ER-ror-dot-STAY-tuh-ree-JEKT]", meaning: "System rejection initiated" },
+                            fearful: { text: "Warn.Collapse.Imminent", phonetic: "[WARN-dot-koh-LAPS-dot-IM-ih-nent]", meaning: "Wave function instability" },
+                            happy: { text: "Harmony.Max.∞", phonetic: "[HAR-moh-nee-dot-MAX-dot-infinity]", meaning: "Infinite resonance achieved" },
+                            neutral: { text: "Baseline.Stable.1.0", phonetic: "[BAY-ss-line-dot-STAY-bull-dot-one-point-oh]", meaning: "Standard operational state" },
+                            sad: { text: "Entropy.Rising.71%", phonetic: "[EN-troh-pee-dot-RY-zing-dot-seven-one-percent]", meaning: "Energy dissipation detected" },
+                            surprised: { text: "Anomaly.Detected.!?", phonetic: "[ah-NOM-ah-lee-dot-dee-TEK-ted-dot-exclamation-question]", meaning: "Unexpected data pattern" }
+                        }
+                    },
+                    nexorian: {
+                        name: "Nexorian",
+                        description: "Telepathic hive-mind species from the Nexus cluster. They share collective consciousness and communicate through emotional frequencies.",
+                        translations: {
+                            angry: { text: "~~RAGE-PULSE-SHARED~~", phonetic: "[RAYJ-puls-SHAYR-ed]", meaning: "Collective fury transmitted" },
+                            disgusted: { text: "=REJECT.FREQUENCY=", phonetic: "[ree-JEKT-dot-FREE-kwen-see]", meaning: "Hive mind revulsion" },
+                            fearful: { text: "!!DANGER-ECHO-ALL!!", phonetic: "[DAYN-jer-EH-koh-AWL]", meaning: "Fear resonates through collective" },
+                            happy: { text: "***JOY-AMPLIFIED***", phonetic: "[JOY-AM-plih-fyd]", meaning: "Happiness multiplied through minds" },
+                            neutral: { text: "---steady.hum---", phonetic: "[STED-ee-dot-HUM]", meaning: "Collective at rest frequency" },
+                            sad: { text: "...sorrow.shared...", phonetic: "[SOR-oh-dot-SHAYR-ed]", meaning: "Grief flows through all" },
+                            surprised: { text: "?!SPIKE-FREQUENCY!?", phonetic: "[SPYK-FREE-kwen-see]", meaning: "Unexpected neural surge" }
+                        }
+                    },
+                    voidborn: {
+                        name: "Voidborn",
+                        description: "Ancient entities from the space between galaxies. They exist partially outside reality and speak in cosmic whispers.",
+                        translations: {
+                            angry: { text: "Ω-VOID-SCREAMS-Ω", phonetic: "[OH-meh-gah-VOYD-skreemz-OH-meh-gah]", meaning: "The emptiness howls" },
+                            disgusted: { text: "∅.reject.existence.∅", phonetic: "[NULL-dot-ree-JEKT-eg-ZIS-tens-NULL]", meaning: "Reality deemed unworthy" },
+                            fearful: { text: "∞-whispers-approach-∞", phonetic: "[IN-fin-ih-tee-WHIS-perz-ah-PROHCH-IN-fin-ih-tee]", meaning: "Ancient terrors stir" },
+                            happy: { text: "◊STARS-SING-VOID◊", phonetic: "[STAHRS-sing-VOYD]", meaning: "Cosmos celebrates in darkness" },
+                            neutral: { text: "—silence.eternal—", phonetic: "[SY-lens-dot-ee-TER-nal]", meaning: "The quiet between thoughts" },
+                            sad: { text: "●●●void.weeps●●●", phonetic: "[VOYD-dot-weeps]", meaning: "Emptiness mourns" },
+                            surprised: { text: "¿¿reality.shifts.¿¿", phonetic: "[ree-AL-ih-tee-dot-SHIFTS]", meaning: "The unexpected pierces void" }
+                        }
+                    },
+                    crystine: {
+                        name: "Crystine",
+                        description: "Crystalline beings who live for millennia. Their language is based on harmonic frequencies and resonance patterns.",
+                        translations: {
+                            angry: { text: "RRRANG♪CRASH♫RING", phonetic: "[RRANG-krash-RING]", meaning: "Discordant crystal shatter" },
+                            disgusted: { text: "♭flat.tone.reject♭", phonetic: "[flat-tohn-ree-JEKT]", meaning: "Harmonic contamination" },
+                            fearful: { text: "♪♪tremble.frequency♪♪", phonetic: "[TREM-bull-FREE-kwen-see]", meaning: "Resonance instability" },
+                            happy: { text: "♫HARMONY♪PURE♫RING♪", phonetic: "[HAR-moh-nee-PYOOR-ring]", meaning: "Perfect crystalline song" },
+                            neutral: { text: "~steady.tone.hum~", phonetic: "[STED-ee-tohn-HUM]", meaning: "Baseline frequency maintained" },
+                            sad: { text: "♭♭low.mournful.chord♭♭", phonetic: "[loh-MORN-ful-KORD]", meaning: "Minor key sorrow" },
+                            surprised: { text: "♪!SHARP.SPIKE.NOTE!♪", phonetic: "[SHARP-spyk-NOHT]", meaning: "Unexpected frequency jump" }
+                        }
+                    }
+                };
+
+                this.speciesInfo = {
+                    zephyrian: "Zephyrians have been the galaxy's premier emotional philosophers for over 3,000 years. Their language contains 47 different tonal variations for expressing degrees of confusion.",
+                    quantari: "Quantari exist in a state of quantum superposition, experiencing all possible emotions simultaneously until observed. They invented the concept of 'probability feelings.'",
+                    nexorian: "The Nexorian hive-mind can share emotions across thousands of light-years instantly. When one feels joy, the entire species celebrates.",
+                    voidborn: "Voidborn emotions are so ancient they predate the current universe. Their sadness is literally older than time itself.",
+                    crystine: "Crystine beings live for millennia, so their emotional expressions evolve over centuries. A Crystine 'quick' response takes about 50 years."
+                };
+
+                this.initializeGalaxy();
+                this.loadModels();
+                this.setupEventListeners();
+                this.createCosmicEffects();
+            }
+
+            initializeGalaxy() {
+                this.createStarfield();
+                this.updateSpeciesInfo();
+            }
+
+            createStarfield() {
+                const starfield = document.getElementById('starfield');
+                
+                // Create different types of stars
+                for (let i = 0; i < 150; i++) {
+                    const star = document.createElement('div');
+                    const size = Math.random();
+                    
+                    if (size < 0.6) star.className = 'star small';
+                    else if (size < 0.85) star.className = 'star medium';
+                    else if (size < 0.95) star.className = 'star large';
+                    else star.className = 'star giant';
+                    
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 3 + 's';
+                    star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                    starfield.appendChild(star);
+                }
+            }
+
+            createCosmicEffects() {
+                this.createMeteors();
+                this.createShootingStars();
+                this.createCosmicParticles();
+                this.createCosmicRings();
+                this.createWormholes();
+            }
+
+            createMeteors() {
+                const meteorsContainer = document.getElementById('meteors');
+                
+                setInterval(() => {
+                    if (Math.random() < 0.3) { // 30% chance every interval
+                        const meteor = document.createElement('div');
+                        meteor.className = 'meteor';
+                        meteor.style.left = Math.random() * 100 + '%';
+                        meteor.style.top = '-100px';
+                        meteor.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                        meteorsContainer.appendChild(meteor);
+                        
+                        // Remove meteor after animation
+                        setTimeout(() => {
+                            if (meteor.parentNode) {
+                                meteor.parentNode.removeChild(meteor);
+                            }
+                        }, 5000);
+                    }
+                }, 2000);
+            }
+
+            createShootingStars() {
+                const shootingStarsContainer = document.getElementById('shootingStars');
+                
+                setInterval(() => {
+                    if (Math.random() < 0.2) { // 20% chance
+                        const shootingStar = document.createElement('div');
+                        shootingStar.className = 'shooting-star';
+                        shootingStar.style.top = Math.random() * 50 + '%';
+                        shootingStar.style.left = '-100px';
+                        shootingStar.style.animationDelay = '0s';
+                        shootingStarsContainer.appendChild(shootingStar);
+                        
+                        setTimeout(() => {
+                            if (shootingStar.parentNode) {
+                                shootingStar.parentNode.removeChild(shootingStar);
+                            }
+                        }, 1500);
+                    }
+                }, 3000);
+            }
+
+            createCosmicParticles() {
+                const particlesContainer = document.getElementById('cosmicParticles');
+                
+                setInterval(() => {
+                    for (let i = 0; i < 3; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = 'cosmic-particle';
+                        particle.style.left = Math.random() * 100 + '%';
+                        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                        particle.style.animationDelay = Math.random() * 2 + 's';
+                        particlesContainer.appendChild(particle);
+                        
+                        setTimeout(() => {
+                            if (particle.parentNode) {
+                                particle.parentNode.removeChild(particle);
+                            }
+                        }, 17000);
+                    }
+                }, 5000);
+            }
+
+            createCosmicRings() {
+                const ringsContainer = document.getElementById('cosmicRings');
+                
+                setInterval(() => {
+                    if (Math.random() < 0.4) {
+                        const ring = document.createElement('div');
+                        ring.className = 'cosmic-ring';
+                        const size = Math.random() * 200 + 100;
+                        ring.style.width = size + 'px';
+                        ring.style.height = size + 'px';
+                        ring.style.left = Math.random() * 100 + '%';
+                        ring.style.top = Math.random() * 100 + '%';
+                        ring.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                        ringsContainer.appendChild(ring);
+                        
+                        setTimeout(() => {
+                            if (ring.parentNode) {
+                                ring.parentNode.removeChild(ring);
+                            }
+                        }, 10000);
+                    }
+                }, 4000);
+            }
+
+            createWormholes() {
+                const wormholesContainer = document.getElementById('wormholes');
+                
+                // Create a few persistent wormholes
+                for (let i = 0; i < 2; i++) {
+                    setTimeout(() => {
+                        const wormhole = document.createElement('div');
+                        wormhole.className = 'wormhole';
+                        wormhole.style.left = Math.random() * 80 + 10 + '%';
+                        wormhole.style.top = Math.random() * 80 + 10 + '%';
+                        wormhole.style.opacity = '0.3';
+                        wormholesContainer.appendChild(wormhole);
+                    }, i * 3000);
+                }
+            }
+
+            setupEventListeners() {
+                document.getElementById('startBtn').addEventListener('click', () => this.startDetection());
+                document.getElementById('stopBtn').addEventListener('click', () => this.stopDetection());
+                
+                // Species selector
+                document.querySelectorAll('.species-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.species-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentSpecies = btn.dataset.species;
+                        this.updateSpeciesInfo();
+                    });
+                });
+            }
+
+            async loadModels() {
+                try {
+                    this.updateStatus('loading', 'Downloading quantum emotion matrices from the galactic database...');
+                    const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/';
+                    await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+                    await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+                    await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+                    
+                    this.updateStatus('active', '✅ Intergalactic connection established! Ready to translate human emotions.');
+                    document.getElementById('startBtn').disabled = false;
+                } catch (error) {
+                    console.error('Error loading models:', error);
+                    this.updateStatus('error', '❌ Connection to galactic network failed. The aliens might be busy.');
+                }
+            }
+
+            updateStatus(type, message) {
+                const statusEl = document.getElementById('status');
+                statusEl.className = `status ${type}`;
+                statusEl.textContent = message;
+            }
+
+            updateSpeciesInfo() {
+                const species = this.alienLanguages[this.currentSpecies];
+                document.getElementById('speciesInfo').innerHTML = `<strong>${species.name}:</strong> ${species.description}`;
+                document.getElementById('galaxyFact').textContent = this.speciesInfo[this.currentSpecies];
+            }
+
+            async startDetection() {
+                this.updateStatus('loading', 'Activating human emotion scanner... Calibrating quantum sensors...');
+                try {
+                    this.stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+                    this.video.srcObject = this.stream;
+                    this.isDetecting = true;
+                    document.getElementById('startBtn').disabled = true;
+                    document.getElementById('stopBtn').disabled = false;
+                    this.updateStatus('active', '🛸 Translation active! Express emotions for universal communication!');
+                    
+                    this.video.addEventListener('play', () => {
+                        this.setupCanvas();
+                        this.detectionInterval = setInterval(() => this.detectAndTranslate(), 200);
+                    });
+                } catch (error) {
+                    this.handleCameraError(error);
+                }
+            }
+            
+            setupCanvas() {
+                const displaySize = { width: this.video.clientWidth, height: this.video.clientHeight };
+                faceapi.matchDimensions(this.overlay, displaySize);
+                this.ctx.save();
+                this.ctx.translate(displaySize.width, 0);
+                this.ctx.scale(-1, 1);
+            }
+
+            stopDetection() {
+                this.isDetecting = false;
+                if (this.stream) {
+                    this.stream.getTracks().forEach(track => track.stop());
+                }
+                if (this.detectionInterval) {
+                    clearInterval(this.detectionInterval);
+                }
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+                this.ctx.clearRect(0, 0, this.overlay.width, this.overlay.height);
+                this.updateStatus('active', '📡 Translation session ended. The cosmos thanks you for sharing.');
+            }
+
+            handleCameraError(error) {
+                let errorMessage = '';
+                if (error.name === 'NotAllowedError') {
+                    errorMessage = '❌ Camera access denied. The aliens cannot see your emotions without permission!';
+                } else {
+                    errorMessage = `❌ Scanner malfunction: ${error.message}. Please check your quantum interface.`;
+                }
+                this.updateStatus('error', errorMessage);
+            }
+
+            async detectAndTranslate() {
+                if (!this.isDetecting || this.video.paused || this.video.ended) return;
+
+                const detections = await faceapi.detectAllFaces(this.video, new faceapi.TinyFaceDetectorOptions())
+                    .withFaceLandmarks()
+                    .withFaceExpressions();
+                
+                this.ctx.clearRect(0, 0, this.overlay.width, this.overlay.height);
+                
+                if (detections && detections.length > 0) {
+                    const mainFace = detections[0];
+                    const expressions = mainFace.expressions;
+                    
+                    // Draw detection with enhanced cosmic-style visualization
+                    const resizedDetections = faceapi.resizeResults(mainFace, { width: this.overlay.width, height: this.overlay.height });
+                    this.drawCosmicScanner(resizedDetections);
+                    
+                    this.translateEmotion(expressions);
+                } else {
+                    this.showNoFaceDetected();
+                }
+            }
+
+            drawCosmicScanner(detection) {
+                const box = detection.detection.box;
+                const time = Date.now() * 0.001;
+                
+                // Main scanning frame with cosmic glow
+                this.ctx.strokeStyle = '#00ff41';
+                this.ctx.lineWidth = 3;
+                this.ctx.shadowColor = '#00ff41';
+                this.ctx.shadowBlur = 15;
+                this.ctx.strokeRect(box.x, box.y, box.width, box.height);
+                
+                // Animated corner brackets with cosmic effect
+                const cornerSize = 25;
+                this.ctx.lineWidth = 4;
+                this.ctx.strokeStyle = `hsl(${120 + Math.sin(time * 2) * 60}, 100%, 70%)`;
+                this.ctx.shadowBlur = 20;
+                
+                // Top-left corner
+                this.ctx.beginPath();
+                this.ctx.moveTo(box.x, box.y + cornerSize);
+                this.ctx.lineTo(box.x, box.y);
+                this.ctx.lineTo(box.x + cornerSize, box.y);
+                this.ctx.stroke();
+                
+                // Top-right corner
+                this.ctx.beginPath();
+                this.ctx.moveTo(box.x + box.width - cornerSize, box.y);
+                this.ctx.lineTo(box.x + box.width, box.y);
+                this.ctx.lineTo(box.x + box.width, box.y + cornerSize);
+                this.ctx.stroke();
+                
+                // Bottom-left corner
+                this.ctx.beginPath();
+                this.ctx.moveTo(box.x, box.y + box.height - cornerSize);
+                this.ctx.lineTo(box.x, box.y + box.height);
+                this.ctx.lineTo(box.x + cornerSize, box.y + box.height);
+                this.ctx.stroke();
+                
+                // Bottom-right corner
+                this.ctx.beginPath();
+                this.ctx.moveTo(box.x + box.width - cornerSize, box.y + box.height);
+                this.ctx.lineTo(box.x + box.width, box.y + box.height);
+                this.ctx.lineTo(box.x + box.width, box.y + box.height - cornerSize);
+                this.ctx.stroke();
+                
+                // Multiple scanning lines with different colors
+                const numScanLines = 3;
+                for (let i = 0; i < numScanLines; i++) {
+                    const offset = i * 0.33;
+                    const scanY = box.y + ((time * 0.5 + offset) % 1) * box.height;
+                    const colors = ['#cc33ff', '#00ffff', '#ff6b6b'];
+                    
+                    this.ctx.strokeStyle = colors[i];
+                    this.ctx.lineWidth = 2;
+                    this.ctx.shadowColor = colors[i];
+                    this.ctx.shadowBlur = 10;
+                    this.ctx.globalAlpha = 0.7;
+                    
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(box.x, scanY);
+                    this.ctx.lineTo(box.x + box.width, scanY);
+                    this.ctx.stroke();
+                }
+                
+                // Cosmic particles around face
+                this.ctx.globalAlpha = 1;
+                for (let i = 0; i < 12; i++) {
+                    const angle = (time + i * 0.5) % (Math.PI * 2);
+                    const radius = 50 + Math.sin(time * 2 + i) * 20;
+                    const x = box.x + box.width / 2 + Math.cos(angle) * radius;
+                    const y = box.y + box.height / 2 + Math.sin(angle) * radius;
+                    
+                    this.ctx.fillStyle = `hsl(${(time * 50 + i * 30) % 360}, 100%, 70%)`;
+                    this.ctx.shadowColor = this.ctx.fillStyle;
+                    this.ctx.shadowBlur = 15;
+                    this.ctx.beginPath();
+                    this.ctx.arc(x, y, 2, 0, Math.PI * 2);
+                    this.ctx.fill();
+                }
+                
+                // Quantum field effect
+                this.ctx.strokeStyle = 'rgba(0, 255, 255, 0.3)';
+                this.ctx.lineWidth = 1;
+                this.ctx.shadowBlur = 5;
+                for (let i = 0; i < 5; i++) {
+                    const fieldRadius = 80 + i * 20 + Math.sin(time * 1.5 + i) * 10;
+                    this.ctx.beginPath();
+                    this.ctx.arc(box.x + box.width / 2, box.y + box.height / 2, fieldRadius, 0, Math.PI * 2);
+                    this.ctx.stroke();
+                }
+                
+                // Reset context
+                this.ctx.shadowBlur = 0;
+                this.ctx.globalAlpha = 1;
+            }
+
+            translateEmotion(expressions) {
+                const dominantEmotion = Object.keys(expressions).reduce((a, b) => expressions[a] > expressions[b] ? a : b);
+                const confidence = Math.round(expressions[dominantEmotion] * 100);
+
+                this.updateTranslationDisplay(dominantEmotion, confidence);
+                this.addToHistory(dominantEmotion);
+            }
+
+            updateTranslationDisplay(emotion, confidence) {
+                const emotionData = this.emotions[emotion];
+                const translation = this.alienLanguages[this.currentSpecies].translations[emotion];
+                
+                if (!emotionData || !translation) return;
+
+                // Update emotion display with enhanced effects
+                const emotionEl = document.getElementById('currentEmotion');
+                emotionEl.textContent = emotionData.emoji;
+                emotionEl.style.filter = `drop-shadow(0 0 ${30 + confidence / 3}px ${emotionData.color})`;
+                
+                document.getElementById('emotionLabel').textContent = `${emotionData.name} Detected`;
+                document.getElementById('emotionLabel').style.color = emotionData.color;
+                document.getElementById('emotionLabel').style.textShadow = `0 0 20px ${emotionData.color}`;
+
+                // Update alien translation with cosmic effects
+                const translationEl = document.getElementById('alienTranslation');
+                translationEl.textContent = translation.text;
+                translationEl.style.color = '#cc33ff';
+                
+                document.getElementById('phoneticGuide').textContent = `${translation.phonetic} - "${translation.meaning}"`;
+
+                // Update confidence with enhanced visual feedback
+                const confidenceFill = document.getElementById('confidenceFill');
+                confidenceFill.style.width = `${confidence}%`;
+                
+                // Dynamic confidence color based on accuracy
+                if (confidence > 80) {
+                    confidenceFill.style.background = 'linear-gradient(90deg, #00ff41, #00d4aa)';
+                    confidenceFill.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.8)';
+                    translationEl.style.textShadow = '0 0 35px #cc33ff, 0 0 50px #cc33ff';
+                } else if (confidence > 60) {
+                    confidenceFill.style.background = 'linear-gradient(90deg, #ffc107, #00ff41)';
+                    confidenceFill.style.boxShadow = '0 0 15px rgba(255, 193, 7, 0.6)';
+                    translationEl.style.textShadow = '0 0 25px #cc33ff';
+                } else {
+                    confidenceFill.style.background = 'linear-gradient(90deg, #ff3333, #ffc107)';
+                    confidenceFill.style.boxShadow = '0 0 10px rgba(255, 51, 51, 0.5)';
+                    translationEl.style.textShadow = '0 0 15px #cc33ff';
+                }
+                
+                document.getElementById('confidenceText').textContent = `Translation Accuracy: ${confidence}%`;
+            }
+
+            addToHistory(emotion) {
+                const emotionData = this.emotions[emotion];
+                const translation = this.alienLanguages[this.currentSpecies].translations[emotion];
+                
+                // Avoid duplicate consecutive entries
+                if (this.translationHistory.length > 0 && 
+                    this.translationHistory[this.translationHistory.length - 1].emotion === emotion) {
+                    return;
+                }
+
+                const historyItem = {
+                    emotion: emotion,
+                    emoji: emotionData.emoji,
+                    name: emotionData.name,
+                    translation: translation.text,
+                    species: this.currentSpecies,
+                    timestamp: new Date()
+                };
+
+                this.translationHistory.push(historyItem);
+                
+                // Keep only last 12 items
+                if (this.translationHistory.length > 12) {
+                    this.translationHistory.shift();
+                }
+
+                this.updateHistoryDisplay();
+            }
+
+            updateHistoryDisplay() {
+                const historyContainer = document.getElementById('translationHistory');
+                historyContainer.innerHTML = '';
+
+                this.translationHistory.slice().reverse().forEach((item, index) => {
+                    const historyDiv = document.createElement('div');
+                    historyDiv.className = 'history-item';
+                    historyDiv.style.animationDelay = (index * 0.1) + 's';
+                    historyDiv.innerHTML = `
+                        <span style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.2em;">${item.emoji}</span>
+                            <span>${item.name}</span>
+                        </span>
+                        <span style="color: #cc33ff; font-family: 'Courier New', monospace; font-size: 0.9em;">
+                            ${item.translation}
+                        </span>
+                    `;
+                    historyContainer.appendChild(historyDiv);
+                });
+            }
+
+            showNoFaceDetected() {
+                document.getElementById('emotionLabel').textContent = 'No Human Detected';
+                document.getElementById('emotionLabel').style.color = '#ffc107';
+                document.getElementById('emotionLabel').style.textShadow = '0 0 15px #ffc107';
+                
+                const emotionEl = document.getElementById('currentEmotion');
+                emotionEl.textContent = '🔍';
+                emotionEl.style.filter = 'drop-shadow(0 0 25px #ffc107)';
+                
+                document.getElementById('alienTranslation').textContent = 'Qel\'tar vesh noth';
+                document.getElementById('phoneticGuide').textContent = '[KELL-tar vesh noth] - "Searching for life signs"';
+                document.getElementById('confidenceFill').style.width = '0%';
+                document.getElementById('confidenceText').textContent = 'Translation Accuracy: Awaiting subject...';
+            }
+        }
+
+        // Initialize the cosmic translator when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new GalacticEmotionTranslator();
+        });
+    </script>
+</body>
+</html>
