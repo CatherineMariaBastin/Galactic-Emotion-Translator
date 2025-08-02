@@ -84,6 +84,9 @@ To use the application, simply navigate to its web page, allow webcam access, an
 
 # Screenshots (Add at least 3)
 
+<img width="1919" height="891" alt="Screenshot 2025-08-02 022401" src="https://github.com/user-attachments/assets/57e61134-5858-4431-87b4-467e66820818" />
+<img width="444" height="735" alt="Screenshot 2025-08-02 071720" src="https://github.com/user-attachments/assets/22571906-8b35-4a23-8906-34250884ca1e" />
+<img width="371" height="730" alt="Screenshot 2025-08-02 071705" src="https://github.com/user-attachments/assets/377e7d0e-9d0a-4025-a164-9e855e89fbfc" />
 
 
 
